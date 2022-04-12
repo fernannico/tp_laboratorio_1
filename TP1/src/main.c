@@ -7,7 +7,7 @@
 							/*Se deben realizar todas las validaciones necesarias para que el programa funcione
 							correctamente. Por ej: no se puede realizar cálculos si no hay vuelos ingresados.*/
 
-
+//testeo de github
 int main(void) {
 	setbuf(stdout, NULL);
 
