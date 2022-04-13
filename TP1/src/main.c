@@ -4,7 +4,10 @@
 #include "validaciones.h"
 #include "funcionesCalculos.h"
 
-//ahora?
+							/*Se deben realizar todas las validaciones necesarias para que el programa funcione
+							correctamente. Por ej: no se puede realizar cálculos si no hay vuelos ingresados.*/
+
+//testeo de github
 int main(void) {
 	setbuf(stdout, NULL);
 
@@ -58,6 +61,9 @@ int main(void) {
 			break;
 			case 2:
 				printf("2. Ingresar Precio de Vuelos:\n ");
+				//funcion pedir enteros
+				//ver de poner la fx validar dentro de pedir enteross
+
 				printf("- Precio vuelo Aerolíneas: ");
 				scanf("%f", &aerolineasPrecio);
 				aerolineasPrecio = ValidarIngreso(aerolineasPrecio);
@@ -105,6 +111,8 @@ int main(void) {
 				kilometros = 7090;
 				aerolineasPrecio = 162965;
 				latamPrecio = 159339;
+
+				//funcion void carga forzada y los int son las 3 variables de arriba
 				precioFinalDebitoAerolineas = CalcularDescuentos(aerolineasPrecio, 10);
 				precioFinalDebitoLatam = CalcularDescuentos(latamPrecio, 10);
 				precioFinalCreditoAerolineas = CalcularAumentos(aerolineasPrecio, 25);
@@ -116,11 +124,13 @@ int main(void) {
 				diferenciaPrecios = CalcularDiferenciaDePrecios(latamPrecio, aerolineasPrecio);
 
 				printf("\nKMs Ingresados: %.2f km", kilometros);
+
 				printf("\n\nPrecio Aerolíneas: $ %.2f", aerolineasPrecio);
 				printf("\na) Precio con tarjeta de débito: $ %.2f", precioFinalDebitoAerolineas);
 				printf("\nb) Precio con tarjeta de crédito: $ %.2f", precioFinalCreditoAerolineas);
 				printf("\nc) Precio pagando con bitcoin : %.8f BTC", precioEnBitcoinsAerolineas);
 				printf("\nd) Precio unitario: $ %.2f", precioUnitarioAerolineas);
+
 				printf("\n\n“Precio Latam: $ %.2f", latamPrecio);
 				printf("\na) Precio con tarjeta de débito: $ %.2f", precioFinalDebitoLatam);
 				printf("\nb) Precio con tarjeta de crédito: $ %.2f", precioFinalCreditoLatam);
