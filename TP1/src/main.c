@@ -4,10 +4,6 @@
 #include "validaciones.h"
 #include "funcionesCalculos.h"
 
-							/*Se deben realizar todas las validaciones necesarias para que el programa funcione
-							correctamente. Por ej: no se puede realizar cálculos si no hay vuelos ingresados.*/
-
-//testeo de github
 int main(void) {
 	setbuf(stdout, NULL);
 
@@ -47,7 +43,7 @@ int main(void) {
 		printf("\ne) Mostrar diferencia de precio ingresada (Latam - Aerolíneas)\n");
 		printf("\n4. Informar Resultados\n");
 		printf("\n5. Carga forzada de datos: ");
-		printf("\n6. Salir");
+		printf("\n6. Salir \n");
 		scanf("%d", &NumeroIngresado);
 		ValidarMenu(NumeroIngresado, 1,6);
 
@@ -61,9 +57,6 @@ int main(void) {
 			break;
 			case 2:
 				printf("2. Ingresar Precio de Vuelos:\n ");
-				//funcion pedir enteros
-				//ver de poner la fx validar dentro de pedir enteross
-
 				printf("- Precio vuelo Aerolíneas: ");
 				scanf("%f", &aerolineasPrecio);
 				aerolineasPrecio = ValidarIngreso(aerolineasPrecio);
@@ -111,8 +104,6 @@ int main(void) {
 				kilometros = 7090;
 				aerolineasPrecio = 162965;
 				latamPrecio = 159339;
-
-				//funcion void carga forzada y los int son las 3 variables de arriba
 				precioFinalDebitoAerolineas = CalcularDescuentos(aerolineasPrecio, 10);
 				precioFinalDebitoLatam = CalcularDescuentos(latamPrecio, 10);
 				precioFinalCreditoAerolineas = CalcularAumentos(aerolineasPrecio, 25);
