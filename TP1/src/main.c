@@ -4,6 +4,7 @@
 #include "validaciones.h"
 #include "funcionesCalculos.h"
 
+//ahora?
 int main(void) {
 	setbuf(stdout, NULL);
 
