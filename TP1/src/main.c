@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "validaciones.h"
@@ -7,15 +6,17 @@
 int main(void) {
 	setbuf(stdout, NULL);
 
-	int NumeroIngresado;
+	int numeroIngresado;
 	float kilometros;
 	float aerolineasPrecio;
 	float latamPrecio;
-	float bitcoin;
+	float descuentoDebito;
 	float precioFinalDebitoAerolineas;
 	float precioFinalDebitoLatam;
+	float aumentoCredito;
 	float precioFinalCreditoAerolineas;
 	float precioFinalCreditoLatam;
+	float bitcoin;
 	float precioEnBitcoinsAerolineas;
 	float precioEnBitcoinsLatam;
 	float precioUnitarioAerolineas;
@@ -26,75 +27,50 @@ int main(void) {
 	kilometros = 0;
 	aerolineasPrecio = 0;
 	latamPrecio = 0;
+	descuentoDebito = 10;
+	aumentoCredito = 25;
 	bitcoin = 4606954.55;
 	flagOpcionCuatro = 0;
 
 	do{
-		printf("\n----------\n----------\n");
-		printf("\n1. Ingresar Kilómetros: (km= %.2f)\n", kilometros);
-		printf("\n2. Ingresar Precio de Vuelos: (Aerolíneas= %.2f, Latam= %.2f)", aerolineasPrecio, latamPrecio );
-		printf("\n- Precio vuelo Aerolíneas: ");
-		printf("\n- Precio vuelo Latam: \n");
-		printf("\n3. Calcular todos los costos:");
-		printf("\na) Tarjeta de débito (descuento 10%%)");
-		printf("\nb) Tarjeta de crédito (interés 25%%)");
-		printf("\nc) Bitcoin (1BTC -> 4606954.55 Pesos Argentinos)");
-		printf("\nd) Mostrar precio por km (precio unitario)");
-		printf("\ne) Mostrar diferencia de precio ingresada (Latam - Aerolíneas)\n");
-		printf("\n4. Informar Resultados\n");
-		printf("\n5. Carga forzada de datos: ");
-		printf("\n6. Salir \n");
-		scanf("%d", &NumeroIngresado);
-		ValidarMenu(NumeroIngresado, 1,6);
+		numeroIngresado = EjecutarMenu(kilometros, aerolineasPrecio, latamPrecio, numeroIngresado);
 
-		printf("\n----------\n----------\n");
-
-		switch(NumeroIngresado){
+		switch(numeroIngresado)
+		{
 			case 1:
-				printf("\n1. Ingresar Kilómetros: (km=x)\n");
-				scanf("%f", &kilometros);
-				kilometros = ValidarIngreso(kilometros);
+				kilometros = ValidarIngresoNumeroPositivo("\n1. Ingresar Kilómetros: ", "ingresaste un kilometraje invalido, reintentar: \n");
 			break;
 			case 2:
 				printf("2. Ingresar Precio de Vuelos:\n ");
-				printf("- Precio vuelo Aerolíneas: ");
-				scanf("%f", &aerolineasPrecio);
-				aerolineasPrecio = ValidarIngreso(aerolineasPrecio);
-				printf("- Precio vuelo Latam: ");
-				scanf("%f", &latamPrecio);
-				latamPrecio = ValidarIngreso(latamPrecio);
+				aerolineasPrecio = ValidarIngresoNumeroPositivo("- Precio vuelo Aerolíneas: ", "ingresaste un precio invalido, reintentar: \n");
+				latamPrecio = ValidarIngresoNumeroPositivo("- Precio vuelo Latam: ", "ingresaste un precio invalido, reintentar: \n");
 			break;
 			case 3:
-				if(kilometros != 0 && aerolineasPrecio != 0 && latamPrecio != 0){
-					precioFinalDebitoAerolineas = CalcularDescuentos(aerolineasPrecio, 10);
-					precioFinalDebitoLatam = CalcularDescuentos(latamPrecio, 10);
-					precioFinalCreditoAerolineas = CalcularAumentos(aerolineasPrecio, 25);
-					precioFinalCreditoLatam = CalcularAumentos(latamPrecio, 25);
+				if(kilometros != 0 && aerolineasPrecio != 0 && latamPrecio != 0)
+				{
+					precioFinalDebitoAerolineas = CalcularDescuentos(aerolineasPrecio, descuentoDebito);
+					precioFinalCreditoAerolineas = CalcularAumentos(aerolineasPrecio, aumentoCredito);
 					precioEnBitcoinsAerolineas = ConvertirPesosABtc(aerolineasPrecio, bitcoin);
-					precioEnBitcoinsLatam = ConvertirPesosABtc(latamPrecio, bitcoin);
 					precioUnitarioAerolineas = CalcularPrecioPorKm(aerolineasPrecio, kilometros);
+					precioFinalDebitoLatam = CalcularDescuentos(latamPrecio, descuentoDebito);
+					precioFinalCreditoLatam = CalcularAumentos(latamPrecio, aumentoCredito);
+					precioEnBitcoinsLatam = ConvertirPesosABtc(latamPrecio, bitcoin);
 					precioUnitarioLatam = CalcularPrecioPorKm(latamPrecio, kilometros);
 					diferenciaPrecios = CalcularDiferenciaDePrecios(latamPrecio, aerolineasPrecio);
 					flagOpcionCuatro = 1;
+					printf("\nse han realizado los calculos\n");
 				}else{
 					printf("\nfaltan datos para poder hacer calculos\n");
 				}
 			break;
 			case 4:
-				if(flagOpcionCuatro == 1){
+				if(flagOpcionCuatro == 1)
+				{
 					printf("\nKMs Ingresados: %.2f km", kilometros);
 					printf("\n\nPrecio Aerolíneas: $ %.2f", aerolineasPrecio);
-					printf("\na) Precio con tarjeta de débito: $ %.2f", precioFinalDebitoAerolineas);
-					printf("\nb) Precio con tarjeta de crédito: $ %.2f", precioFinalCreditoAerolineas);
-					printf("\nc) Precio pagando con bitcoin : %.8f BTC", precioEnBitcoinsAerolineas);
-					printf("\nd) Precio unitario: $ %.2f", precioUnitarioAerolineas);
-
-					printf("\n\n“Precio Latam: $ %.2f", latamPrecio);
-					printf("\na) Precio con tarjeta de débito: $ %.2f", precioFinalDebitoLatam);
-					printf("\nb) Precio con tarjeta de crédito: $ %.2f", precioFinalCreditoLatam);
-					printf("\nc) Precio pagando con bitcoin : %.8f BTC", precioEnBitcoinsLatam);
-					printf("\nd) Precio unitario: $ %.2f", precioUnitarioLatam);
-
+					MostrarResultados(precioFinalDebitoAerolineas, precioFinalCreditoAerolineas, precioEnBitcoinsAerolineas, precioUnitarioAerolineas);
+					printf("\n\nPrecio Latam: $ %.2f", latamPrecio);
+					MostrarResultados(precioFinalDebitoLatam, precioFinalCreditoLatam, precioEnBitcoinsLatam, precioUnitarioLatam);
 					printf("\n\nLa diferencia de precio es: $ %.2f", diferenciaPrecios);
 				}else{
 					printf("\nfaltan datos para poder mostrar los calculos\n");
@@ -104,37 +80,16 @@ int main(void) {
 				kilometros = 7090;
 				aerolineasPrecio = 162965;
 				latamPrecio = 159339;
-				precioFinalDebitoAerolineas = CalcularDescuentos(aerolineasPrecio, 10);
-				precioFinalDebitoLatam = CalcularDescuentos(latamPrecio, 10);
-				precioFinalCreditoAerolineas = CalcularAumentos(aerolineasPrecio, 25);
-				precioFinalCreditoLatam = CalcularAumentos(latamPrecio, 25);
-				precioEnBitcoinsAerolineas = ConvertirPesosABtc(aerolineasPrecio, bitcoin);
-				precioEnBitcoinsLatam = ConvertirPesosABtc(latamPrecio, bitcoin);
-				precioUnitarioAerolineas = CalcularPrecioPorKm(aerolineasPrecio, kilometros);
-				precioUnitarioLatam = CalcularPrecioPorKm(latamPrecio, kilometros);
-				diferenciaPrecios = CalcularDiferenciaDePrecios(latamPrecio, aerolineasPrecio);
-
-				printf("\nKMs Ingresados: %.2f km", kilometros);
-
-				printf("\n\nPrecio Aerolíneas: $ %.2f", aerolineasPrecio);
-				printf("\na) Precio con tarjeta de débito: $ %.2f", precioFinalDebitoAerolineas);
-				printf("\nb) Precio con tarjeta de crédito: $ %.2f", precioFinalCreditoAerolineas);
-				printf("\nc) Precio pagando con bitcoin : %.8f BTC", precioEnBitcoinsAerolineas);
-				printf("\nd) Precio unitario: $ %.2f", precioUnitarioAerolineas);
-
-				printf("\n\n“Precio Latam: $ %.2f", latamPrecio);
-				printf("\na) Precio con tarjeta de débito: $ %.2f", precioFinalDebitoLatam);
-				printf("\nb) Precio con tarjeta de crédito: $ %.2f", precioFinalCreditoLatam);
-				printf("\nc) Precio pagando con bitcoin : %.8f BTC", precioEnBitcoinsLatam);
-				printf("\nd) Precio unitario: $ %.2f", precioUnitarioLatam);
-
-				printf("\n\nLa diferencia de precio es: $ %.2f", diferenciaPrecios);
+				HacerCargaForzada(descuentoDebito, aumentoCredito, bitcoin, kilometros, aerolineasPrecio, latamPrecio);
+			break;
+			case 6:
+				printf("Saliendo del programa");
+			break;
+			default:
+				printf("se ingresó una opcion invalida: ");
 			break;
 		}
-	}while(NumeroIngresado != 6);
+	}while(numeroIngresado != 6);
 
 	return EXIT_SUCCESS;
 }
-
-
-

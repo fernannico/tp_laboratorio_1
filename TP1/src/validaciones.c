@@ -3,53 +3,52 @@
 #include <stdlib.h>
 #include "validaciones.h"
 
-int ValidarMenu(int numeroAValidar, int minimo, int maximo)
-{
-	int numero;
-	while(numeroAValidar < minimo || numeroAValidar > maximo)
-	{
-		printf("ingresaste un mal dato, ingresa del 1 al 6");
-		printf("\n1. Ingresar Kilómetros: (km=x)\n");
-		printf("\n2. Ingresar Precio de Vuelos: (Aerolíneas=y, Latam=z)");
-		printf("\n	 - Precio vuelo Aerolíneas:");
-		printf("\n	 - Precio vuelo Latam: \n");
-		printf("\n3. Calcular todos los costos:");
-		printf("\n	 a) Tarjeta de débito (descuento 10%%)");
-		printf("\n	 b) Tarjeta de crédito (interés 25%%)");
-		printf("\n	 c) Bitcoin (1BTC -> 4606954.55 Pesos Argentinos)");
-		printf("\n	 d) Mostrar precio por km (precio unitario)");
-		printf("\n	 e) Mostrar diferencia de precio ingresada (Latam - Aerolíneas)\n");
-		printf("\n4. Informar Resultados");
-		printf("\n“Latam:");
-		printf("\na) Precio con tarjeta de débito: r");
-		printf("\nb) Precio con tarjeta de crédito: r");
-		printf("\nc) Precio pagando con bitcoin : r");
-		printf("\nd) Precio unitario: r");
-		printf("\nAerolíneas:");
-		printf("\na) Precio con tarjeta de débito: r");
-		printf("\nb) Precio con tarjeta de crédito: r");
-		printf("\nc) Precio pagando con bitcoin : r");
-		printf("\nd) Precio unitario: r");
-		printf("\nLa diferencia de precio es : r“\n\n");
-		printf("\n5. Carga forzada de datos");
-		printf("\n6. Salir");
-		scanf("%d", &numeroAValidar);
-		numero = numeroAValidar;
-	}
-	return numero;
-}
-
-float ValidarIngreso(float numeroIngresado)
+float ValidarIngresoNumeroPositivo(char * mensaje, char * mensajeError)
 {
 	float numeroValidado;
 
-	while(numeroIngresado < 1)
+	printf("%s", mensaje);
+	fflush(stdin);
+	scanf("%f", &numeroValidado);
+
+	while(numeroValidado < 1)
 	{
-		printf("no ingresaste un valor valido, hagalo para continuar:");
-		scanf("%f", &numeroIngresado);
+		printf("%s", mensajeError);
+		printf("%s", mensaje);
+		fflush(stdin);
+		scanf("%f", &numeroValidado);
 	}
 
-	numeroValidado = numeroIngresado;
-
 	return numeroValidado;
+}
+
+int EjecutarMenu(float kilometros, float aerolineasPrecio, float latamPrecio, int NumeroIngresado)
+{
+	printf("\n----------\n----------\n");
+	printf("\n1. Ingresar Kilómetros: (km= %.2f)\n", kilometros);
+	printf("\n2. Ingresar Precio de Vuelos: (Aerolíneas= %.2f, Latam= %.2f)", aerolineasPrecio, latamPrecio);
+	printf("\n- Precio vuelo Aerolíneas: ");
+	printf("\n- Precio vuelo Latam: \n");
+	printf("\n3. Calcular todos los costos:");
+	printf("\na) Tarjeta de débito (descuento 10%%)");
+	printf("\nb) Tarjeta de crédito (interés 25%%)");
+	printf("\nc) Bitcoin (1BTC -> 4606954.55 Pesos Argentinos)");
+	printf("\nd) Mostrar precio por km (precio unitario)");
+	printf("\ne) Mostrar diferencia de precio ingresada (Latam - Aerolíneas)\n");
+	printf("\n4. Informar Resultados\n");
+	printf("\n5. Carga forzada de datos: \n");
+	printf("\n6. Salir\n");
+	printf("elija una opcion: ");
+	scanf("%d", &NumeroIngresado);
+	printf("\n----------\n----------\n");
+
+	return NumeroIngresado;
+}
+
+void MostrarResultados(float precioFinalDebito, float precioFinalCredito, float precioEnBitcoins, float precioUnitario)
+{
+	printf("\na) Precio con tarjeta de débito: $ %.2f", precioFinalDebito);
+	printf("\nb) Precio con tarjeta de crédito: $ %.2f", precioFinalCredito);
+	printf("\nc) Precio pagando con bitcoin : %.8f BTC", precioEnBitcoins);
+	printf("\nd) Precio unitario: $ %.2f", precioUnitario);
 }
