@@ -41,7 +41,7 @@ int addPassenger(Passenger list[], int len, int id, char name[], char lastName[]
 	{
 		unPasajero = PedirUnPassanger();
 		unPasajero.id = ObtenerID();
-		unPasajero.isEmpty = OCUPADO; //cada vez que ingrese un alumno, ya lo muestre como ocupado
+		unPasajero.isEmpty = OCUPADO; //cada vez que ingrese un pasajero, ya lo muestre como ocupado
 
 		list[retorno] = unPasajero;
 		retorno = 0;
@@ -122,9 +122,9 @@ void InformarPassengers(Passenger list[], int len)
 						}
 					}
 				break;
-				/*case 2:
-
-				break;*/
+				case 2:
+					InformarPromedios(list, len);
+				break;
 				case 3:
 					if(utn_getNumero(&subOpcion, "\nelija una opcion: "
 												"\n0 - Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’ de manera descendente."
@@ -245,7 +245,6 @@ int sortPassengersByCode(Passenger list[], int len, int order)
 
 	if(list != NULL && len > 0)
 	{
-		retorno = 0;
 		switch (order)
 		{
 			case 1:
@@ -264,7 +263,7 @@ int sortPassengersByCode(Passenger list[], int len, int order)
 						}
 					}
 				}
-			//printPassenger(list, len);
+			retorno = 0;
 			break;
 			case 0:
 				for(i = 0; i < (len - 1); i++)
@@ -282,7 +281,6 @@ int sortPassengersByCode(Passenger list[], int len, int order)
 						}
 					}
 				}
-			//printPassenger(list, len);
 			retorno = 0;
 			break;
 		}
@@ -290,6 +288,40 @@ int sortPassengersByCode(Passenger list[], int len, int order)
 	return retorno;
 }
 
+void InformarPromedios(Passenger list[], int len)
+{
+	float montoTotal;
+	int totalPasajeros;
+	float promedio;
+	int pasajerosSobrePromedio;
+
+	montoTotal = 0;
+	totalPasajeros = 0;
+	pasajerosSobrePromedio = 0;
+
+	for(int i = 0; i < len; i++)
+	{
+		if(list[i].isEmpty == OCUPADO)
+		{
+			totalPasajeros++;
+			montoTotal += list[i].price;
+		}
+	}
+
+	promedio = montoTotal / totalPasajeros;
+
+	for(int i = 0; i < len; i++)
+	{
+		if(list[i].isEmpty == OCUPADO && list[i].price > promedio)
+		{
+			pasajerosSobrePromedio++;
+		}
+	}
+
+	printf("\nel monto total final es de %.2f"
+			"\nel promedio es de %.2f"
+			"\nlos pasajeros que superan el promedio son %d\n\n", montoTotal, promedio, pasajerosSobrePromedio);
+}
 
 	//				//				///				//			//
 
@@ -297,10 +329,10 @@ int sortPassengersByCode(Passenger list[], int len, int order)
  * PROPIAS
  * */
 
-int HayarEspacioLibre(Passenger list[], int len)				//YA
+int HayarEspacioLibre(Passenger list[], int len)
 {
 	int retorno;
-	retorno =-1;												//por default supone q esta lleno
+	retorno =-1;
 
 	for(int i=0; i < len; i++)
 	{
@@ -336,7 +368,7 @@ Passenger PedirUnPassanger()
 	return UnPasajero;
 }
 
-void ModificarPassenger(Passenger list[], int len, int orden)//si bien es solo para promedio, HACER QUE LA PERSONA DECIDA q cambiar.
+void ModificarPassenger(Passenger list[], int len, int orden)
 {
  	int ParametroAModificar;
 

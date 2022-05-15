@@ -26,18 +26,6 @@ struct
 	int statusFlight;
 	int isEmpty;
 }typedef Passenger;
-/*
-typedef struct
-{
-	char flycode[10];		//PK
-	int statusFlight;	//ACTIVO, CANCELADO, DEMORADO
-}StatusFlight;
-
-typedef struct
-{
-	int typePassenger;		//PK
-	char typePassengerChar[30];//PRIMERA_CLASE, EJECUTIVO, PREMIUM
-}TypePassenger;*/
 
 /// @brief Para indicar que todas las posiciones del array están vacías, esta función pone la bandera (isEmpty) en TRUE
 		/// en todas las posiciones del array.
@@ -109,8 +97,7 @@ void ModificarPassenger(Passenger list[], int len, int orden);
 
 void MostrarUnPasajero(Passenger pasajero);
 
-
-
+void InformarPromedios(Passenger list[], int len);
 
 
 

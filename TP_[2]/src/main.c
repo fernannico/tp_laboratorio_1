@@ -13,9 +13,7 @@
 int main(void) {
 	setbuf(stdout, NULL);
 
-	Passenger listaPasajeros[TAM]; //= {{10,"Pedro", "Gomez", 1707, "ACT1", 2, 1}};
-	//StatusFlight estadoVuelos[3] = {{"ACT1", "ACTIVO"}, {"C4NC", "CANCELADO"}, {"D3M0", "DEMORADO"}};
-	//TypePassenger tipoDePasajero[3] = {{1, "TURISTA"}, {2, "EJECUTIVO"}, {3, "PRIMERA"}};
+	Passenger listaPasajeros[TAM];
 
 	int opcion;
 	int estadosLibres;
