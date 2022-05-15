@@ -64,6 +64,9 @@ int findPassengerById(Passenger list[], int len, int id);
 /// ejemplo: r = removePassenger(arrayPassengers, ELEMENTS,20);
 int removePassenger(Passenger list[], int len, int id);
 
+/// @brief el menu de informes,
+/// @param list
+/// @param len
 void InformarPassengers(Passenger list[], int len);
 
 /// @brief Ordena el array de pasajeros por apellido y tipo de pasajero de manera ascendente o descendente. indicar orden ARRIBA o ABAJO
@@ -90,13 +93,25 @@ int printPassenger(Passenger list[], int length);
 int sortPassengersByCode(Passenger list[], int len, int order);
 
 Passenger PedirUnPassanger();
-
+/// @brief para buscar la posicion del vector que se encuentra libre
+/// @param list
+/// @param len
+/// @return retorna la posicion libre
 int HayarEspacioLibre(Passenger list[], int len);
 
+/// @brief para modificar un parametro del pasajero
+/// @param list
+/// @param len
+/// @param orden la posicion del pasajero en el vector
 void ModificarPassenger(Passenger list[], int len, int orden);
 
+/// @brief para mostrar un pasajero del vector
+/// @param pasajero
 void MostrarUnPasajero(Passenger pasajero);
 
+/// @brief para informar los calculos del promedio total
+/// @param list
+/// @param len
 void InformarPromedios(Passenger list[], int len);
 
 

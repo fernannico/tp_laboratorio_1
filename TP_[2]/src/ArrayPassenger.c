@@ -103,22 +103,22 @@ void InformarPassengers(Passenger list[], int len)
 			switch (opcion)
 			{
 				case 0:
-					printf("saliendo del programa");
+					printf("\nsaliendo del programa");
 				break;
 				case 1:
 					if(utn_getNumero(&subOpcion, "\nelija una opcion: "
 							"\n0 - pasajeros por apellido y tipo de pasajero de manera descendente."
-							"\n1 - pasajeros por apellido y tipo de pasajero de manera ascendente", "error, reintente: ", 0, 1, 3) == 0)
+							"\n1 - pasajeros por apellido y tipo de pasajero de manera ascendente", "\nerror, reintente: ", 0, 1, 3) == 0)
 					{
 						index = sortPassengers(list, len, subOpcion);
 						if(index == 0)
 						{
 							if(printPassenger(list, len) == 0)
 							{
-								printf("se han ordenado!");
+								printf("\nse han ordenado!");
 							}
 						}else{
-							printf("error!");
+							printf("\nerror!");
 						}
 					}
 				break;
@@ -128,17 +128,17 @@ void InformarPassengers(Passenger list[], int len)
 				case 3:
 					if(utn_getNumero(&subOpcion, "\nelija una opcion: "
 												"\n0 - Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’ de manera descendente."
-												"\n1 - Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’ de manera ascendente", "error, reintente: ", 0, 1, 3) == 0)
+												"\n1 - Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’ de manera ascendente", "\nerror, reintente: ", 0, 1, 3) == 0)
 					{
 						index = sortPassengersByCode(list, len, subOpcion);
 						if(index == 0)
 						{
 							if(printPassenger(list, len) == 0)
 							{
-								printf("se han ordenado!");
+								printf("\nse han ordenado!");
 							}
 						}else{
-							printf("error!");
+							printf("\nerror!");
 						}
 					}
 				break;

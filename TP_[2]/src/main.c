@@ -42,7 +42,7 @@ int main(void) {
 					"	opcion 5: FINALIZAR programa\n"
 					"=============================================\n");
 
-			if(utn_getNumero(&opcion, "ingrese una opcion: \n", "error, opcion invalida\n", 1, 5, 3) == 0)
+			if(utn_getNumero(&opcion, "ingrese una opcion: \n", "error, opcion invalida\n\n", 1, 5, 3) == 0)
 			{
 				printf("opcion %d\n", opcion);
 			}
@@ -54,11 +54,11 @@ int main(void) {
 					switch (retorno)
 					{
 						case 0:
-							printf("\n se ingreso al pasajero!\n");
+							printf("\n se ingreso al pasajero!\n\n");
 							contadorPassengers++;
 							break;
 						case -1:
-							printf("\n no se ingreso al pasajero. No hay espacio!\n");
+							printf("\n no se ingreso al pasajero. No hay espacio!\n\n");
 							break;
 					}
 				break;
@@ -111,7 +111,7 @@ int main(void) {
 					printf("\nsaliendo del programa...");
 				break;
 				default:
-					printf("se ingresó una opcion invalida: ");
+					printf("\nse ingresó una opcion invalida: ");
 				break;
 			}
 		}while(opcion != 5);
