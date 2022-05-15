@@ -27,8 +27,6 @@ int main(void) {
 
 	estadosLibres = initPassengers(listaPasajeros, TAM);//iniciamos todos en libres
 
-	//InicializarListaHarcodeos(listaPasajeros);//harcodeamos unos
-
 	if(estadosLibres == 0)//si hay espacio..
 	{
 		do{
@@ -69,7 +67,7 @@ int main(void) {
 				case 2:
 					if(contadorPassengers != 0)
 					{
-						MostrarListaDePasajeros(listaPasajeros, TAM);
+						printPassenger(listaPasajeros, TAM);
 
 						if(utn_getNumero(&idMod, "\ningrese el id a modificar", "\nerror", 1, 2000, 4) == 0)
 						{
@@ -86,7 +84,7 @@ int main(void) {
 				case 3:
 					if(contadorPassengers != 0)
 					{
-						MostrarListaDePasajeros(listaPasajeros, TAM);
+						printPassenger(listaPasajeros, TAM);
 						if(utn_getNumero(&idMod, "\ningrese el id a borrar", "\nerror", 1, 2000, 4) == 0)
 						{
 							printf("\nse ingreso %d", idMod);
@@ -104,13 +102,15 @@ int main(void) {
 
 				break;
 				case 4:
-					/*1. Listado de los pasajeros ordenados alfabéticamente por Apellido y Tipo de pasajero.
-					2. Total y promedio de los precios de los pasajes, y cuántos pasajeros superan el precio
-					promedio.
-					3. Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’*/
+					if(contadorPassengers != 0)
+					{
+						InformarPassengers(listaPasajeros, TAM);
+					}else{
+						printf("\nno hay pasajeros de alta.");
+					}
 				break;
 				case 5:
-					//printf("opcion 5\n");
+					printf("\nsaliendo del programa...");
 				break;
 				default:
 					printf("se ingresó una opcion invalida: ");

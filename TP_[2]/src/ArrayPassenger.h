@@ -21,15 +21,16 @@ struct
 	char name[51];
 	char lastName[51];
 	float price;
-	char flycode[10];		//FK
-	int typePassenger;		//FK
+	char flycode[10];
+	int typePassenger;
+	int statusFlight;
 	int isEmpty;
 }typedef Passenger;
 /*
 typedef struct
 {
 	char flycode[10];		//PK
-	char statusFlight[30];	//ACTIVO, CANCELADO, DEMORADO
+	int statusFlight;	//ACTIVO, CANCELADO, DEMORADO
 }StatusFlight;
 
 typedef struct
@@ -75,20 +76,22 @@ int findPassengerById(Passenger list[], int len, int id);
 /// ejemplo: r = removePassenger(arrayPassengers, ELEMENTS,20);
 int removePassenger(Passenger list[], int len, int id);
 
+void InformarPassengers(Passenger list[], int len);
+
 /// @brief Ordena el array de pasajeros por apellido y tipo de pasajero de manera ascendente o descendente. indicar orden ARRIBA o ABAJO
 /// @param list Passenger
 /// @param len int
 /// @param order int [1] indica ARRIBA - [0] indica ABAJO
 /// @return Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0) si está bien
 /// ejemlpo: r = sortPassengersByName(arrayPassengers, ELEMENTS, 1);
-int sortPassengers(Passenger list, int len, int order);
+int sortPassengers(Passenger list[], int len, int order);
 
 /// @brief Imprime el array de pasajeros de forma encolumnada.
 /// @param list Passenger
 /// @param length int
 /// @return int
 /// ejemplo: r = printPassenger(arrayPassengers, ELEMENTS);
-int printPassenger(Passenger list, int length);
+int printPassenger(Passenger list[], int length);
 
 /// @brief Ordena el array de pasajeros por código de vuelo y estado de vuelo de manera ascendente o descendente.
 /// @param list Passenger
@@ -96,11 +99,7 @@ int printPassenger(Passenger list, int length);
 /// @param order int [1] indica ARRIBA - [0] indica ABAJO
 /// @return Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0) si está bien
 /// ejemplo: r = sortPassengersByCode(arrayPassengers, ELEMENTS, 1);
-int sortPassengersByCode(Passenger list, int len, int order);
-
-/// @brief luego de tener inicializados en 0 a todos, agrego unos harcodeados
-/// @param list Passenger
-void InicializarListaHarcodeos(Passenger list[]);
+int sortPassengersByCode(Passenger list[], int len, int order);
 
 Passenger PedirUnPassanger();
 
@@ -108,10 +107,7 @@ int HayarEspacioLibre(Passenger list[], int len);
 
 void ModificarPassenger(Passenger list[], int len, int orden);
 
-void MostrarListaDePasajeros(Passenger lista[], int len);
-
 void MostrarUnPasajero(Passenger pasajero);
-
 
 
 

@@ -85,63 +85,217 @@ int removePassenger(Passenger list[], int len, int id)
 	}
 	return retorno;
 }
-	//				//				///				//			//
-/*
-int Passenger_Baja(Passenger array[], int len, int idGen)
+
+void InformarPassengers(Passenger list[], int len)
 {
-	int rtn = -1;
+	int opcion;
+	int subOpcion;
 	int index;
-	int flag = 0;
 
-	//LISTO TODOS LOS Gen
-	if (Passenger_MostrarTodos(array, TAM)) {
-		//BANDERA EN 1 SI HAY Gen DADOS DE ALTA PARA LISTAR
-		flag = 1;
-	}
+	do
+	{
+		if(utn_getNumero(&opcion, "\nelija una opcion a informar: "
+						"\n1 Listado de los pasajeros ordenados alfabéticamente por Apellido y Tipo de pasajero"
+						"\n2 Total y promedio de los precios de los pasajes, y cuántos pasajeros superan el precio promedio."
+						"\n3 Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’\n"
+						"\n 0 salir del menu de informes...", "\nerror, reintente:", 0, 3, 3) == 0)
+		{
+			switch (opcion)
+			{
+				case 0:
+					printf("saliendo del programa");
+				break;
+				case 1:
+					if(utn_getNumero(&subOpcion, "\nelija una opcion: "
+							"\n0 - pasajeros por apellido y tipo de pasajero de manera descendente."
+							"\n1 - pasajeros por apellido y tipo de pasajero de manera ascendente", "error, reintente: ", 0, 1, 3) == 0)
+					{
+						index = sortPassengers(list, len, subOpcion);
+						if(index == 0)
+						{
+							if(printPassenger(list, len) == 0)
+							{
+								printf("se han ordenado!");
+							}
+						}else{
+							printf("error!");
+						}
+					}
+				break;
+				/*case 2:
 
-	//SI HAY Gen PARA DAR DE BAJA
-	if (flag) {
-		//PIDO ID A DAR DE BAJA
-		//USAR FUNCION GET_INT DE LIBRERIA DE INPUTS
-		printf("INGRESE ID A DAR DE BAJA: ");
-		scanf("%d", &idGen);
-
-		//BUSCO INDEX POR ID EN ARRAY
-		while (findPassengerById(array, TAM, idGen) == -1) {
-			puts("NO EXISTE ID.");
-
-			//USAR FUNCION GET_INT DE LIBRERIA DE INPUTS
-			printf("INGRESE ID A DAR DE BAJA: ");
-			scanf("%d", &idGen);
+				break;*/
+				case 3:
+					if(utn_getNumero(&subOpcion, "\nelija una opcion: "
+												"\n0 - Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’ de manera descendente."
+												"\n1 - Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’ de manera ascendente", "error, reintente: ", 0, 1, 3) == 0)
+					{
+						index = sortPassengersByCode(list, len, subOpcion);
+						if(index == 0)
+						{
+							if(printPassenger(list, len) == 0)
+							{
+								printf("se han ordenado!");
+							}
+						}else{
+							printf("error!");
+						}
+					}
+				break;
+			}
 		}
 
-		//OBTENGO INDEX DEL ARRAY DE Gen A DAR DE BAJA
-		index = findPassengerById(array, TAM, idGen);
+	}while (opcion != 0);
+}
 
-		//PREGUNTAR SI DESEA CONTINUAR
-		//BAJA ACEPTADA - CAMBIO ESTADO A "BAJA"
-		array[index].isEmpty = LIBRE;
+int sortPassengers(Passenger list[], int len, int order)
+{
+	int retorno;
+	int i;
+	int j;
+	retorno = -1;
+	Passenger auxiliar;
 
-		//RETORNO 0 SI SE DIO DE BAJA CORRECTAMENTE
-		rtn = 0;
+	//order int [1] indicate UP (mM) - [0] indicate DOWN (Mm)
+	if(list != NULL && len > 0)
+	{
+		retorno = 0;
+		switch (order)
+		{
+			case 1:
+				for(i = 0; i < (len - 1); i++)
+				{
+					for(j = i+1; j < len; j++ )
+					{
+						if(strcmp(list[i].lastName,list[j].lastName)>0)
+						{
+							auxiliar = list[i];
+							list[i] = list[j];
+							list[j] = auxiliar;
+						}else{
+							if(strcmp(list[i].lastName, list[j].lastName) == 0)
+							{
+								if(list[i].typePassenger > list[j].typePassenger)
+								{
+									auxiliar = list[i];
+									list[i] = list[j];
+									list[j] = auxiliar;
+								}
+							}
+						}
+					}
+				}
+			break;
+			case 0:
+				for(i = 0; i < (len - 1); i++)
+				{
+					for(j = i+1; j < len; j++ )
+					{
+						if(strcmp(list[i].lastName,list[j].lastName)<0)
+						{
+							auxiliar = list[i];
+							list[i] = list[j];
+							list[j] = auxiliar;
+						}else{
+							if(strcmp(list[i].lastName, list[j].lastName) == 0)
+							{
+								if(list[i].typePassenger < list[j].typePassenger)
+								{
+									auxiliar = list[i];
+									list[i] = list[j];
+									list[j] = auxiliar;
+								}
+							}
+						}
+					}
+				}
+			retorno = 0;
+			break;
+		}
 	}
+	return retorno;
+}
 
-	return rtn;
-}*/
+int printPassenger(Passenger list[], int length)
+{
+	int retorno;
+	retorno = -1;
+	if(list != NULL && length > 0)
+	{
+		retorno = 0;
+		for(int i=0; i< length; i++)
+		{
+			if(list[i].isEmpty == OCUPADO)
+			{
+				MostrarUnPasajero(list[i]);
+			}
+		}
+	}
+	return retorno;
+}
 
+int sortPassengersByCode(Passenger list[], int len, int order)
+{
+	int i;
+	int j;
+	int retorno;
+	retorno = -1;
+
+	Passenger auxiliar;
+
+	if(list != NULL && len > 0)
+	{
+		retorno = 0;
+		switch (order)
+		{
+			case 1:
+				for(i = 0; i < (len - 1); i++)
+				{
+					for(j = i+1; j < len; j++ )
+					{
+						if(list[j].statusFlight == 1)
+						{
+							if(strcmp(list[i].flycode,list[j].flycode)>0)
+							{
+								auxiliar = list[i];
+								list[i] = list[j];
+								list[j] = auxiliar;
+							}
+						}
+					}
+				}
+			//printPassenger(list, len);
+			break;
+			case 0:
+				for(i = 0; i < (len - 1); i++)
+				{
+					for(j = i+1; j < len; j++)
+					{
+						if(list[j].statusFlight == 1)
+						{
+							if((strcmp(list[i].flycode,list[j].flycode) < 0))
+							{
+								auxiliar = list[i];
+								list[i] = list[j];
+								list[j] = auxiliar;
+							}
+						}
+					}
+				}
+			//printPassenger(list, len);
+			retorno = 0;
+			break;
+		}
+	}
+	return retorno;
+}
+
+
+	//				//				///				//			//
 
 /**
  * PROPIAS
  * */
-void InicializarListaHarcodeos(Passenger list[])
-{
-	Passenger harcodeos[2000] = {{1,"Pedro", "Gomez", 1707.5, "ACT1", 2, OCUPADO}, {2,"Alan", "Gimenez", 2000.5, "ACT1", 2, OCUPADO}};
-
-	for(int i = 0; i < 2000; i++)
-	{
-		list[i] = harcodeos[i];
-	}
-}
 
 int HayarEspacioLibre(Passenger list[], int len)				//YA
 {
@@ -169,6 +323,9 @@ Passenger PedirUnPassanger()
 	(utn_getNombre(auxiliar.lastName, 51, "\ningrese el apellido del pasajero: ", "\nerror, reintente  (Respetar la primer mayuscula)\n", 4) == 0) &&
 	(utn_getFloat(&auxiliar.price, 10, "\ningrese el precio: ", "\nerror, reintente\n", 4) == 0) &&
 	(utn_getAlfanumerico(auxiliar.flycode, 10, "\ningrese el codigo del vuelo", "\nerror, reintente\n", 4) == 0) &&
+	(utn_getNumero(&auxiliar.statusFlight, "\ningrese el estado del vuelo: "
+											"\n0 - DEMORADO"
+											"\n1 - ACTIVO", "\nerror, reintente: ", 0, 1, 4) == 0) &&
 	(utn_getNumero(&auxiliar.typePassenger, "\ningrese el tipo de pasajero: \n "
 											"\n1- TURISTA "
 											"\n2- EJECUTIVO "
@@ -233,24 +390,10 @@ void ModificarPassenger(Passenger list[], int len, int orden)//si bien es solo p
 		}
 
  	}
-
-
-
-}
-
-void MostrarListaDePasajeros(Passenger lista[], int len)
-{
-	for(int i=0; i< len; i++)
-	{
-		if(lista[i].isEmpty == OCUPADO)
-		{
-			MostrarUnPasajero(lista[i]);
-		}
-	}
 }
 
 void MostrarUnPasajero(Passenger pasajero)
 {
-	printf("\n%4d %10s %10s %4.2f %10s %4d %4d \n", pasajero.id, pasajero.name, pasajero.lastName, pasajero.price, pasajero.flycode, pasajero.typePassenger, pasajero.isEmpty);
+	printf("\n%4d %10s %10s %4.2f %10s %4d %4d %4d \n", pasajero.id, pasajero.name, pasajero.lastName, pasajero.price, pasajero.flycode, pasajero.typePassenger, pasajero.statusFlight, pasajero.isEmpty);
 }
 
